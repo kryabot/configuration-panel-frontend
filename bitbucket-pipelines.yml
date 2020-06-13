@@ -15,7 +15,7 @@ pipelines:
         caches:
           - node
         script: # Modify the commands below to build your repository.
-          - apt-get update && apt-get install -y unzip git
+          - apk add --no-cache git
           - npm install
           #- npm install --save-dev  --unsafe-perm node-sass
           - npm run ng build -- --prod --output-path=dist
