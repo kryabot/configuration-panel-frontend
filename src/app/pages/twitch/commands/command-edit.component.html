@@ -1,0 +1,74 @@
+<div style="min-width: 666px;">
+<nb-card>
+    <nb-card-header>{{ modalTitle }}</nb-card-header>
+    <nb-card-body>
+      <div [hidden]="checking">
+        <nb-alert
+        *ngFor="let alert of alerts"
+        [size]="alert.size"
+        [status]="alert.status"
+        closable
+        (close)="onAlertClose(alert)">
+        {{alert.message}}
+      </nb-alert>
+
+        <form #commandForm="ngForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+            <div class="form-group row">
+              <label for="name" class="label col-sm-3 form-control-label">Command name</label>
+              <div class="col-sm-9">
+
+                <input type="text" nbInput fullWidth required id="name" [(ngModel)]="command.name" name="name" #name="ngModel" status="{{ !validateName() ? 'danger' : ''}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="level" class="label col-sm-3 form-control-label">Access level</label>
+              <div class="col-sm-9">
+                <nb-select selected="{{ command.level }}" id="level" [(ngModel)]="command.level" name="level" status="{{ !validateLevel() ? 'danger' : '' }}">
+                    <nb-option *ngFor="let lvl of levelDropdown" value="{{ lvl.value }}">{{ lvl.title }}</nb-option>
+                  </nb-select>
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="cooldown" class="label col-sm-3 form-control-label">Command usage cooldown</label>
+                <div class="col-sm-9">
+                  <input type="number" min="{{ cooldown_min }}" max="{{ secs_week }}" nbInput fullWidth id="cooldown" [(ngModel)]="command.cooldown" name="cooldown" status="{{ !validateCooldown() ? 'danger': ''}}">
+                </div>
+              </div>
+            <div class="form-group row">
+                <label for="repeat_amount" class="label col-sm-3 form-control-label">Automated repeat cooldown</label>
+                <div class="col-sm-9">
+                  <input type="number" min="0" max="{{ secs_week }}" nbInput fullWidth id="repeat_amount" [(ngModel)]="command.repeat_amount" name="repeat_amount" status="{{ !validateRepeat()  ? 'danger' : '' }}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="reply_message" class="label col-sm-3 form-control-label">Bot reply message</label>
+                <div class="col-sm-9">
+                    <textarea rows="5" nbInput required fullWidth id="reply_message" [(ngModel)]="command.reply_message" name="reply_message"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <div class="checkbox">
+                  <nb-checkbox [(ngModel)]="command.active" id="level" name="level">Enabled</nb-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                
+              </div>
+            </div>
+          </form>
+        </div>
+        <div [hidden]="!checking" style="margin: 5em;">
+          <nb-spinner message='Updating my priorities...' size='giant' status="{{ saved }}"></nb-spinner>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton hero status="warning" (click)="dismiss()" [disabled]="checking">Cancel</button>
+      <button nbButton status="success" [disabled]="!commandForm.form.valid || checking" class="pull-right" (click)="onSubmit()">{{ getButtonTitle() }}</button>
+    </nb-card-footer>
+  </nb-card>
+</div>

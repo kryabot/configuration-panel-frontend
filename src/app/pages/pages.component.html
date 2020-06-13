@@ -1,0 +1,27 @@
+<ngx-one-column-layout>
+    <nb-menu [items]="menu"></nb-menu>
+    <router-outlet>
+    
+
+      <nb-spinner *ngIf='backendLoading'  message='{{loadingTitle}}' size='xxlarge'></nb-spinner>
+    <nb-alert *ngFor="let alert of globalAlerts"
+                  [size]="alert.size"
+                  [status]="alert.status"
+                  closable
+                  (close)="onAlertClose(alert)">
+                  <p class="multi-line">{{alert.message}}</p>
+                  </nb-alert>
+    
+
+
+    </router-outlet>
+  </ngx-one-column-layout>
+
+
+  <ng-template #loadingDialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-body>
+        <nb-spinner *ngIf='backendLoading' message='{{loadingTitle}}' size='xxlarge'></nb-spinner>
+      </nb-card-body>
+    </nb-card>
+  </ng-template>

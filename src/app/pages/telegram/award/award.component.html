@@ -1,0 +1,55 @@
+<div class="row" style="vertical-align: middle;">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase;">Telegram group awards
+                <button nbButton class="pull-right" (click)="help(helpDialog)"><nb-icon icon="question-mark-circle-outline" pack="eva"></nb-icon>Help</button>
+            </nb-card-header>
+            <nb-card-body>
+                    <nb-alert
+                    *ngFor="let alert of alerts"
+                    [size]="alert.size"
+                    [status]="alert.status"
+                    closable
+                    (close)="onAlertClose(alert)">
+                    {{alert.message}}
+                  </nb-alert>
+                <ng2-smart-table [settings]="dataTableConfig" [source]="dataSource" (deleteConfirm)="onDeleteConfirm($event)"> 
+                </ng2-smart-table>
+                <br>
+                <div *ngIf="datas.length > 0" class="buttons-row form-group">
+                  <button nbButton class="pull-right" (click)="unbanAll()" status="danger"><nb-icon icon="trash" pack="eva"></nb-icon>Delete all awards</button>
+                </div>
+                
+            </nb-card-body>
+        </nb-card>
+
+    </div>
+</div>
+
+<ng-template #helpDialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Telegram group awards</nb-card-header>
+      <nb-card-body>
+        <div>
+          Awards are just labels which you (or group admins) can grant to your Telegram group to members. Award template are written in user information message by KryaBot (/who)<br>
+          Award have counter which can be used in templates with: {{ '{' }}counter{{ '}' }}<br><br>
+          <b>Usage:</b>
+          To give award (as reply to user message): /award keyword<br>
+          To create award: /setaward keyword template<br>
+          To delete award: /deleteaward keyword<br>
+          To get list of available award keywords: /getawards<br><br>
+
+          Examples:<br>
+          /setaward apple User have {{ '{' }}counter{{ '}' }} apples<br>
+          /award apple<br>
+          /award apple 10<br><br>
+
+          <a href="assets/images/help/award_help.PNG" target="_blank">Example in telegram</a>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton hero status="warning" (click)="ref.close()">Cancel</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>

@@ -1,0 +1,7 @@
+<div *ngIf="!returned">
+    <b><nb-spinner message='Preparing milkshake...' size='large'></nb-spinner> </b>
+</div>
+
+<div *ngIf="returned">
+    <b>{{ returnValue }}</b>
+</div>
