@@ -10,7 +10,7 @@ pipelines:
   branches: # Automated triggers on commits to branches
    web-panel: # -- When committing to master branch
     - step:
-        name: Build
+        name: Build and deploy
         caches:
           - node
         script: # Modify the commands below to build your repository.
@@ -18,15 +18,10 @@ pipelines:
           - npm install --save-dev  --unsafe-perm node-sass
           - npm run ng build -- --prod --output-path=dist
           - ls -ltr dist
-        artifacts:
-          - dist/**
-    - step:
-        name: Deploy
-        script:
-          - pipe: atlassian/ftp-deploy:0.3.3
-            variables:
-                USER: $PANEL_USER
-                PASSWORD: $PANEL_PASSWORD
-                SERVER: $DEPLOY_SERVER
-                REMOTE_PATH: '/'
-                LOCAL_PATH: 'dist' # Optional
+		  - pipe: atlassian/ftp-deploy:0.3.3
+			variables:
+				USER: $PANEL_USER
+				PASSWORD: $PANEL_PASSWORD
+				SERVER: $DEPLOY_SERVER
+				REMOTE_PATH: '/'
+				LOCAL_PATH: 'dist' # Optional
