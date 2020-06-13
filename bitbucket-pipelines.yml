@@ -8,7 +8,7 @@ image: node:current-alpine
 
 pipelines:
   branches: # Automated triggers on commits to branches
-   web-panel: # -- When committing to master branch
+   master: # -- When committing to master branch
     - step:
         name: Build and deploy
         deployment: production
