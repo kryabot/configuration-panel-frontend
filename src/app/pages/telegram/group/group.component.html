@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-lg-6">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Telegram group: {{ tggroup?.tg_chat_name }}</nb-card-header>
+            <nb-card-body>
+                
+                <div class>
+                    <input #link type="text" class="form-control" placeholder="Telegram invitation code" value="{{tggroup?.join_link}}">
+                    <br>
+                    <span class="row justify-content-center">
+                        <button nbButton status="success" (click)="saveLink(link.value)">
+                            Save TG invitation link
+                        </button>
+                    </span>
+                </div>
+                <br><br>
+                <h6>Notes</h6>
+                <ul class="mb-5">
+                    <li>Telegram group must be private supergroup</li>
+                    <li>When you save invitation code then bot automatically joins your Telegram group.</li>
+                    <li>For bot to work property admin rights to ban and remove messages are required.</li>
+                    <li>If you want to remove bot from your channel, just kick it out.</li>
+                </ul>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">User report for {{ lastReportDate || '' }}</nb-card-header>
+            <nb-card-body>
+                <ngx-charts-advanced-pie-chart 
+                [gradient]="true"
+                [scheme]="colorScheme"
+                [results]="single">
+              </ngx-charts-advanced-pie-chart>
+              User report runs once per day, around 21:00 MSK.
+            </nb-card-body>
+        </nb-card>
+    </div>
+    
+
+    <div class="col-md-12 col-lg-6 col-xxxl-6" *ngIf="tggroup?.tg_chat_id > 0">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Telegram bot configuration</nb-card-header>
+            <nb-card-body>
+                In development...
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Automated mass kick</nb-card-header>
+            <nb-card-body>
+                <span *ngIf="isEnabledAutomatedMassKick()">
+                    Automated mass kick is enabled. Happens each {{ tggroup?.auto_mass_kick }} days. <br>
+                    Last automated mass kick was done in {{ tggroup?.last_auto_kick | date:'yyyy-MM-dd HH:mm:ss' }}
+                </span>
+                <span *ngIf="!isEnabledAutomatedMassKick()">
+                    Automated mass kick is disabled.
+                </span>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

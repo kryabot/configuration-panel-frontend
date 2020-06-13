@@ -1,0 +1,92 @@
+<div class="row">
+
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+      <nb-card accent="info">
+        <nb-card-header>Chat commands 
+          <button nbButton class="pull-right" (click)="help(helpDialog)"><nb-icon icon="question-mark-circle-outline" pack="eva"></nb-icon>Help</button>
+          <button nbButton class="pull-right" (click)="help(tagsDialog)"  style="margin-right: 20px;"><nb-icon icon="hash" pack="eva"></nb-icon>Tags</button>
+        </nb-card-header>
+      <nb-card-body>
+          <nb-alert
+          *ngFor="let alert of getCommandAlerts()"
+          [size]="alert.size"
+          [status]="alert.status"
+          closable
+          (close)="onAlertClose(alert)">
+          {{alert.message}}
+        </nb-alert>
+        <ng2-smart-table [settings]="settings" [source]="source" 
+          (delete)="deleteCommand($event)" 
+          (edit)="editCommand($event)" 
+          (create)="createCommand($event)" 
+          (userRowSelect)="onRowSelect($event)"> 
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+    </div>
+  </div>
+
+
+  <ng-template #helpDialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Command help</nb-card-header>
+      <nb-card-body>
+        <div>
+          Commands is used in Twitch chat to automate responses to viewer or displaying specific information.<br>
+          Command are trigged by viewer sent message with channel command symbol and command name. For example: !help<br>
+          <br>
+          <b>Parameters:</b>
+          <ul>
+            <li>Each command has message text which may have specific tags with dynamic data</li>
+            <li>Each command has cooldown, this means you can change how often user can access commands.</li>
+            <li>Each command has timer (repeat period), timer means how ofter bot will send this message automatically (set 0 to disable).</li>
+            <li>Each command has access level, this means you can resitrict who can use your command by user role in Twitch chat.</li>
+            <li>You may disable or enable command.</li>
+          </ul>
+
+          <br>
+          <b>Restrictions for edit and creation:</b>
+          <ul>
+            <li>Command name is unique, this means you can not have two or more command with same name.</li>
+            <li>Command name cannot have spaces.</li>
+            <li>Minimum command cooldown is 10 seconds.</li>
+          </ul>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton hero status="warning" (click)="ref.close()">Cancel</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+
+  <ng-template #tagsDialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Tags</nb-card-header>
+      <nb-card-body>
+        <div>
+          <br>
+          <b>Tags which can be used in command message text:</b>
+          <ul>
+            <li>#user# - nickname of user who called the command (example: KryaBot)</li>
+            <li>#channel# - your channel name (example: KryaBot)</li>
+            <li>#context# - all text after command name</li>
+            <li>#online# - gives current viewer online count(example: 234)</li>
+            <li>#uptime# - gives current stream uptime (example: 1hour 23minutes 34seconds) </li>
+            <li>#randomviewer# - randomly show any current viewer</li>
+            <li>#randomnumber10# - show random number from 1 to 10. You can change 10 to 20, 30, 40 ... up to 100. For example: #randomnumber70#</li>
+            <li>#target# or #w1#- first word after command name</li>
+            <li>#w2# - second word after command name</li>
+            <li>#w3# - third word after command name</li>
+            <li>#w4# - forth word after command name</li>
+            <li>#w5# - fifth word after command name</li>
+            <!-- <li>#song# - show currently playing song. Works only if you have song source configured in KryaBot.</li> -->
+          </ul>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton hero status="warning" (click)="ref.close()">Cancel</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>

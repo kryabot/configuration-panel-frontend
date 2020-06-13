@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Member flags</nb-card-header>
+            <nb-card-body>
+                    <nb-alert
+                    *ngFor="let alert of getRightsAlert()"
+                    [size]="alert.size"
+                    [status]="alert.status"
+                    closable
+                    (close)="onAlertClose(alert)">
+                    <p class="multi-line">{{alert.message}}</p>
+                  </nb-alert>
+                <ng2-smart-table [settings]="memberRightsTableConfig" [source]="memberRightsSource" (deleteConfirm)="onDeleteConfirm($event)"> 
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+
+    </div>
+</div>

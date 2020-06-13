@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-12 col-lg-8 col-xxxl-8">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Member list of Telegram group: {{ tggroup?.tg_chat_name }}</nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table [settings]="memberTableConfig" [source]="memberSource"> 
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+
+    </div>
+    
+    <div class="col-md-12 col-lg-4 col-xxxl-4">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Member refresh</nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 col-xxxl-4">
+                        <h6>Last refresh:</h6><br>
+                        <h6>Refresh status:</h6>
+                    </div>
+                    <div class="col-md-12 col-lg-7 col-xxxl-7">
+                            <h6> {{ tggroup?.last_member_refresh | date:'yyyy-MM-dd HH:mm:ss'}}</h6><br>
+                            <h6> {{ tggroup?.refresh_status }}</h6>
+
+                    </div>
+
+                </div>
+                <br>
+                <div class='d-flex justify-content-center'>
+                    <button nbButton *ngIf='tggroup?.refresh_status != "WAIT"' (click)="refreshMembers()">
+                            Refresh members now
+                        </button>
+                </div>
+                <br>
+                Member list is refreshed manually by pressing refresh members button. <br>
+                Button is not available if refresh status is wait. <br>
+                It can take awile for bigger group.<br>
+                One member check can take up to 1 second - depends on Twitch load.<br>
+                Only up to 10 000 members can be received (Telegram limit).
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Member statistic</nb-card-header>
+            <nb-card-body>
+            <div class='row col-md-12'>
+                <div class='d-flex justify-content-start'>
+                        Total members:<br>
+                        Verified members:<br>
+                        Subscribed members:<br>
+                        Deleted members:<br>
+                </div>
+                <div class='col-md-12 col-lg-3 col-xxxl-3'>
+
+                </div>
+                <div class='d-flex justify-content-start'>
+                {{ counterTotal }}<br>
+                {{ counterVerified }}<br>
+                {{ counterSubs }}<br>
+                {{ counterDeleted }}
+                </div>
+            </div>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="info" *ngIf='tggroup?.refresh_status != "WAIT"'>
+            <nb-card-header style="text-transform: uppercase">Mass member kick</nb-card-header>
+            <nb-card-body>
+                <h6>Please check required criterias for member kick.</h6>
+                <div class="form-group validation-checkboxes">
+                    <h6>Kick if:</h6>
+                    <nb-checkbox #box *ngFor="let sett of cleanSettings" status="{{sett.type}}" class="col-sm-12 row" [value]="sett.enabled" (change)="checkboxChange(sett.key, box.value)">{{ sett.title }}</nb-checkbox>
+                </div>
+                <div class='d-flex justify-content-center'>
+                        <button nbButton status="danger" (click)="massKick()">
+                                Start execution
+                            </button>
+                    </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+</div>

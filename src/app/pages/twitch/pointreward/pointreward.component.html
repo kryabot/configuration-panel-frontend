@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-card accent="info">
+            <nb-card-header>
+                Channel point reward actions
+            </nb-card-header>
+            <nb-card-body>
+                <nb-alert
+                *ngFor="let alert of getRewardAlerts()"
+                [size]="alert.size"
+                [status]="alert.status"
+                closable
+                (close)="onAlertClose(alert)">
+                {{alert.message}}
+                </nb-alert>
+                <ng2-smart-table [settings]="pointRewardSettings" [source]="pointRewardSource" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)" (userRowSelect)="onRowSelect($event)"> 
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

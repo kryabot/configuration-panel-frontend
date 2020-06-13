@@ -1,0 +1,92 @@
+@import '../@theme/styles/global/breakpoints';
+:host {
+  $auth-layout-padding: 2.5rem;
+  nb-layout-column {
+    background-color: #19171C;
+  }
+  nb-card {
+    position: relative;
+    margin: auto;
+    color: #D3CAE8;
+    //height: calc((100vh - 2 * #{$auth-layout-padding}) );
+    //width: 30%;
+    //width: 30rem;
+    max-width: 30rem;
+    //background-color: #4B367C;
+    background-color: #3A2E5C;
+  }
+
+  .navigation .link {
+    text-decoration: none;
+
+    .icon {
+      font-size: 2rem;
+    }
+  }
+
+  nb-card-body {
+    display: block;
+    width: 100%;
+    margin: 0px auto 0px auto;
+    text-align: center
+    //height: 20rem;
+  }
+  nb-card-header {
+    background-image: url('/assets/images/KryaBot_twitch_profile_logo.jpg');
+    background-size: 20rem;
+    width:20rem;
+    height:20rem;
+    margin: 0px auto 0px auto;
+    padding: 5px;
+    border-bottom: 0px;
+  }
+
+  nb-auth-block {
+      //display: flex;
+    //align-items: center;
+    //justify-content: center;
+    margin: 0px auto 0px auto;
+    //margin: 0px auto 0px auto;
+  }
+
+  nb-oauth2-login{
+    margin: 0px auto 0px auto;
+  }
+
+
+  @include media-breakpoint-down(sm) {
+    nb-card {
+      border-radius: 0;
+      height: 100vh;
+    }
+  }
+
+  /deep/ {
+    nb-layout .layout .layout-container .content .columns nb-layout-column {
+      padding: $auth-layout-padding;
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+      }
+    }
+  }
+
+  .twitch-login-btn {
+    background: #6441a4;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    -webkit-user-select: none;
+align-items: center;
+display: inline-flex;
+font-size: 1.2rem;
+justify-content: center;
+line-height: 2rem;
+outline: none;
+position: relative;
+text-decoration: none;
+user-select: none;
+vertical-align: middle;
+white-space: nowrap;
+  }
+}

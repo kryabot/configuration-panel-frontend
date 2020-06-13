@@ -1,0 +1,48 @@
+<div class="row" style="vertical-align: middle;">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase;">Banned telegram media
+                <button nbButton class="pull-right" (click)="help(helpDialog)"><nb-icon icon="question-mark-circle-outline" pack="eva"></nb-icon>Help</button>
+            </nb-card-header>
+            <nb-card-body>
+                    <nb-alert
+                    *ngFor="let alert of alerts"
+                    [size]="alert.size"
+                    [status]="alert.status"
+                    closable
+                    (close)="onAlertClose(alert)">
+                    {{alert.message}}
+                  </nb-alert>
+                <ng2-smart-table [settings]="mediaTableConfig" [source]="mediaSource" (deleteConfirm)="onDeleteConfirm($event)"> 
+                </ng2-smart-table>
+                <br>
+                <div *ngIf="medias.length > 0" class="buttons-row form-group">
+                  <button nbButton class="pull-right" (click)="unbanAll()" status="danger"><nb-icon icon="trash" pack="eva"></nb-icon>Unban all</button>
+                </div>
+                
+            </nb-card-body>
+        </nb-card>
+
+    </div>
+</div>
+
+<ng-template #helpDialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Telegram banned media</nb-card-header>
+      <nb-card-body>
+        <div>
+          Your telegram group admins can ban media objects (images, videos, stickers) and bot automatically removes future usages of this media. <br><br>
+          <b>Usage:</b>
+          /banmedia image description<br>
+          For example: /banmedia porn content
+
+           <br><br>
+           Text entered after command is displayed in collumn "Description". This text must help you identify theme/topic of media because there no way to preview once its banned.
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton hero status="warning" (click)="ref.close()">Cancel</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>

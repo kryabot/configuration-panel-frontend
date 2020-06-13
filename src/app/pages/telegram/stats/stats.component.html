@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12 col-lg-6 col-xxxl-6">
+
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Group member count</nb-card-header>
+            <nb-card-body>
+                <ngx-stats-total-bar *ngIf="totalRaw.length > 0" [totalData]="totalRaw" [subData]="subRaw"></ngx-stats-total-bar>
+                <nb-spinner *ngIf="totalRaw.length == 0" size='xxlarge' status='success'></nb-spinner>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div class="col-md-12 col-lg-6 col-xxxl-6">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Group sent messages</nb-card-header>
+            <nb-card-body>
+                <ngx-stats-message-bar *ngIf="messageRaw.length > 0" [data]="messageRaw"></ngx-stats-message-bar>
+                <nb-spinner *ngIf="messageRaw.length == 0" size='xxlarge' status='success'></nb-spinner>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+
+    <!-- <div class="col-md-12 col-lg-6 col-xxxl-6">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Sub data</nb-card-header>
+            <nb-card-body>
+                todo
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div class="col-md-12 col-lg-6 col-xxxl-6">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">Kick data</nb-card-header>
+            <nb-card-body>
+                todo
+            </nb-card-body>
+        </nb-card>
+    </div> -->
+</div>

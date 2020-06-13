@@ -1,0 +1,49 @@
+.twitch-login-btn {
+    background: #6441a4;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    -webkit-user-select: none;
+align-items: center;
+display: inline-flex;
+font-size: 1.2rem;
+justify-content: center;
+line-height: 2rem;
+outline: none;
+position: relative;
+text-decoration: none;
+user-select: none;
+vertical-align: middle;
+white-space: nowrap;
+font-family: Open Sans, sans-serif;
+font-weight: 700;
+font-size: 0.875rem;
+line-height: 1rem;
+border-style: solid;
+border-width: 0.0625rem;
+text-transform: uppercase;
+padding: 0.6875rem 1.125rem;
+margin-top: 1rem;
+  }
+  .twitch-login-btn:hover {
+  background: #7d5bbe;
+  border-color: #7d5bbe;
+
+}
+.twitch-login-btn:active {
+    background: #6441a4;
+    border-color: #7d5bbe;
+    box-shadow: 0 0 6px 0 #7d5bbe;
+}
+
+.twitch-login-btn:focus {
+  background: #7d5bbe;
+  border-color: #9a7fcc;
+  box-shadow: 0 0 6px 0 #7d5bbe;
+}
+
+.access-li{
+  float:left;
+  width: 100%;
+  text-align: left;
+}

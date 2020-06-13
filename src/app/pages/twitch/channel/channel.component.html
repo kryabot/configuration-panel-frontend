@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-12 col-lg-8 col-xxxl-8">
+        <nb-card accent="info">
+            <nb-card-header style="text-transform: uppercase">{{channel?.channel_name}}</nb-card-header>
+            <nb-card-body>
+                Channel name: {{channel?.channel_name}} <br>
+                Command symbol: {{channel?.command_symbol}} <br>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    
+    <div class="col-md-12 col-lg-4 col-xxxl-4">
+        <ngx-status-card *ngFor="let statusCard of statusCards" [title]="statusCard.title"
+                            [type]="statusCard.type"
+                            [enabled]="statusCard.enabled"
+                            [key]="statusCard.key"
+                            (change)="cardClick($event)">
+            <i [ngClass]="statusCard.iconClass"></i>
+        </ngx-status-card>
+    </div>
+
+</div>
