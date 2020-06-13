@@ -16,7 +16,7 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - npm install
-          - npm install --save-dev  --unsafe-perm node-sass
+          #- npm install --save-dev  --unsafe-perm node-sass
           - npm run ng build -- --prod --output-path=dist
           - ls -ltr dist
           - pipe: atlassian/ftp-deploy:0.3.3
