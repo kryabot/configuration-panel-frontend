@@ -11,6 +11,7 @@
 </div>
 
 <div class="header-container">
+  <span *ngIf="selectedSudo && selectedSudo.channel_name && selectedSudo.channel_name != user.name">[editing {{ selectedSudo?.channel_name }}]</span>
   <nb-actions size="small">
     <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
@@ -21,3 +22,20 @@
     </nb-action>
   </nb-actions>
 </div>
+
+<ng-template #userSwitchDialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Select which user to edit</nb-card-header>
+    <nb-card-body>
+      <div *ngIf="user.allow_web_access" class="select-sudo">
+        <button nbButton hero fullWidth status="info" (click)="onTargetChange(user); ref.close()">{{ user.name }}</button>
+      </div>
+      <div *ngIf="!user.allow_web_access" class="select-sudo">
+        <button nbButton hero fullWidth disabled status="info" (click)="onTargetChange(user); ref.close()">{{ user.name }}</button>
+      </div>
+      <div *ngFor="let sudo of sudoList" class="select-sudo" style="margin-top: 1em;">
+        <button nbButton hero fullWidth status="info" (click)="onTargetChange(sudo); ref.close()">{{ sudo.channel_name }}</button>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

@@ -19,6 +19,7 @@ import { BannedWordModule } from './telegram/banned-word/banned-word.module';
 import { AwardModule } from './telegram/award/award.module';
 import { GroupStatsModule } from './telegram/stats/stats.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import {DialogQuestionComponent} from "../@theme/components";
 
 @NgModule({
   imports: [
@@ -43,17 +44,16 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     MiscellaneousModule,
     FormsModule,
     NbDialogModule.forChild(),
-    NbIconModule
-    
+    NbIconModule,
+
   ],
   declarations: [
     PagesComponent,
-    // DialogQuestionComponent,
+    DialogQuestionComponent
   ],
-  exports: [StatusCardModule
-  ],
+  exports: [StatusCardModule],
   entryComponents:[
-    // DialogQuestionComponent
+    DialogQuestionComponent
   ]
 })
 export class PagesModule {

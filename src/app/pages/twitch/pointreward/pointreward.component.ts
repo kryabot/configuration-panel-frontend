@@ -114,12 +114,14 @@ export class PointRewardComponent implements OnInit {
 
     });
   }
-  private hasDuplicate(title: string, isNew: boolean, existingId: number): boolean{
-    let findResult = null
-    if(isNew)
+  private hasDuplicate(title: string, existingId: number): boolean {
+    let findResult = null;
+
+    if (existingId == null || existingId === 0) {
       findResult = this.rewards.find(x => x.title === title);
-    else
-      findResult = this.rewards.find(x => x.title === title && x.channel_point_action_id != existingId)
+    } else {
+      findResult = this.rewards.find(x => x.title === title && x.channel_point_action_id !== existingId)
+    }
 
     if (findResult) return true;
     return false;
@@ -197,7 +199,7 @@ export class PointRewardComponent implements OnInit {
       return;
     }
 
-    if(this.hasDuplicate(event.newData.title, event.newData.channel_point_action_id > 0, event.newData.channel_point_action_id)){
+    if (this.hasDuplicate(event.newData.title, event.newData.channel_point_action_id)) {
       this.createAlert('warning', texts.DUPLICATE_POINT_REWARD, 'pointreward');
       return;
     }
@@ -215,7 +217,7 @@ export class PointRewardComponent implements OnInit {
       this.rewards = resp;
       this.loadTable();
       event.confirm.resolve();
-      
+
     }, error => {
       event.confirm.reject();
       console.log(error)
@@ -233,7 +235,7 @@ export class PointRewardComponent implements OnInit {
 
     /* Find original row */
     let originalRow: PointReward = this.rewards.find(x => x.channel_point_action_id === row.channel_point_action_id);
-    
+
     /* For safety, not send data to backend if user tried to edit non exiting row */
     if(originalRow == null) return true;
 

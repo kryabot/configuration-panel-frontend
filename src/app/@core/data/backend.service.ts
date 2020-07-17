@@ -21,6 +21,7 @@ export class BackendService {
 
     private base_url: string;
     private token: any;
+    private targetId: number;
     private defaultJsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
 
     constructor(private http: HttpClient,
@@ -66,6 +67,14 @@ export class BackendService {
         return this.token.access_token;
     }
 
+    searchTargetId(): number {
+      const val = localStorage.getItem('target_id');
+      if (val){
+        this.targetId = parseInt(val);
+      }
+      return this.targetId || 0;
+    }
+
     protected getHeader(auth?: boolean): HttpHeaders {
         let head = new HttpHeaders();
         head.set('Content-Type', 'application/json');
@@ -76,6 +85,11 @@ export class BackendService {
     protected getUrl(type: string, inputToken?: string, name?: string) {
         if (!inputToken) { inputToken = this.searchToken(); }
         let url = `${this.base_url}/${type}/?access_token=${inputToken}`;
+
+        const target_id = this.searchTargetId();
+        if (target_id > 0) {
+          url = `${url}&target_id=${target_id}`;
+        }
         return url;
     }
 
@@ -162,7 +176,7 @@ export class BackendService {
     deleteAllBannedMedia(inputToken?: string) {
         return this.http.post(this.getUrl(`telegram/media`, inputToken), {headers: this.defaultJsonHeader}).pipe(catchError(this.handleError.bind(this)));
     }
-    
+
     getBannedWords(inputToken?: string): Observable<BannedWord[]>{
         return this.http.get<BannedWord[]>(this.getUrl('telegram/word', inputToken), {headers: this.getHeader()})
         .pipe(catchError(this.handleError.bind(this)));
