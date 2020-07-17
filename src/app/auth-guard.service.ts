@@ -23,17 +23,20 @@ export class AuthGuard implements CanActivate {
       if (response.status && response.message) {
         this.authService.logout('twitch');
         localStorage.removeItem('auth_app_token');
+        localStorage.removeItem('target_id');
         this.router.navigate(['/']);
       }
     }
 
     expiredToken(){
       localStorage.removeItem('auth_app_token');
+      localStorage.removeItem('target_id');
       this.router.navigate(['auth'], { queryParams: { msg: 'http', status: 405} });
     }
 
     notAuthorised(){
       localStorage.removeItem('auth_app_token');
+      localStorage.removeItem('target_id');
       this.router.navigate(['auth'], { queryParams: { msg: 'http', status: 401} });
     }
 

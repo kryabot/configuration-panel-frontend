@@ -23,6 +23,8 @@ import {
 } from '@nebular/theme';
 import { AuthGuard } from './auth-guard.service';
 import { APP_BASE_HREF } from '@angular/common';
+import {DialogQuestionComponent} from "./@theme/components";
+//import {DialogQuestionModule} from "./@theme/components/modal/question-dialog/question-dialog.module";
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import { APP_BASE_HREF } from '@angular/common';
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
-
+    //DialogQuestionModule,
     NbSpinnerModule,
   ],
   exports: [NbSpinnerModule],
@@ -55,9 +57,7 @@ import { APP_BASE_HREF } from '@angular/common';
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
   ],
-  entryComponents:[
-    // DialogQuestionComponent,
-  ]
+  //entryComponents: [DialogQuestionComponent],
 })
 export class AppModule {
 }

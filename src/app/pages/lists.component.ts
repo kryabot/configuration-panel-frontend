@@ -15,12 +15,12 @@ export var texts = {
   };
 
 export var statusList = [
-    { value: 0, title: 'Disabled' }, 
+    { value: 0, title: 'Disabled' },
     { value: 1, title: 'Enabled' },
     ];
 
-export var levelList = [ 
-    {value: 0, title: 'Everyone'}, 
+export var levelList = [
+    {value: 0, title: 'Everyone'},
     {value: 1, title: 'Follower'},
     {value: 2, title: 'Subscriber'},
     {value: 4, title: 'VIP'},
@@ -37,7 +37,7 @@ export var paramKeyList= [
     ];
 
 export var typeList = [
-    {value: "custom_reply", title: "Chat reply"}, 
+    {value: "custom_reply", title: "Chat reply"},
     // {value: "custom_whisper", title: "Whisper replay"},
     {value: "custom_song", title: "Chat reply (music)"},
     ];
@@ -55,23 +55,21 @@ export var noticeType = [
 ];
 
 export var subTypeList = [
-    {value: "1000", title: "Subscriber (Tier 1)"}, 
+    {value: "1000", title: "Subscriber (Tier 1)"},
     {value: "2000", title: "Subscriber (Tier 2)"},
     {value: "3000", title: "Subscriber (Tier 3)"},
     {value: "prime", title: "Subscriber (Prime)"},
     {value: "no", title: "No"},
-    {value: "", title: "No"}
-    //{value: null, title: "No2"},
     ];
 
-export var pointRewardActionList = [
+export let pointRewardActionList = [
     // {value: "TWITCH_SUBMOD_ON",     title: "Twitch enable submod"},
     // {value: "TWITCH_SUBMOD_OFF",    title: "Twitch disable submod"},
-    // {value: "TWITCH_MESSAGE",       title: "Twitch chat message"},
-    {value: "TWITCH_MUTE_SELF",     title: "Twitch mute user (self)"},
-    {value: "TWITCH_MUTE_OTHER",    title: "Twitch mute user (other)"}, 
-    // {value: "TG_MUTE_SELF",         title: "Telegram mute user (self)"}, 
+    {value: 'TWITCH_MESSAGE',       title: 'Twitch chat message'},
+    {value: 'TWITCH_MUTE_SELF',     title: 'Twitch mute user (self)'},
+    {value: 'TWITCH_MUTE_OTHER',    title: 'Twitch mute user (other)'},
+    // {value: "TG_MUTE_SELF",         title: "Telegram mute user (self)"},
     // {value: "TG_MUTE_OTHER",        title: "Telegram mute user (other)"},
     // {value: "TG_MESSAGE",           title: "Telegram group message"},
-    // {value: "TG_AWARD",             title: "Telegram add award"}, 
+    // {value: "TG_AWARD",             title: "Telegram add award"},
 ];

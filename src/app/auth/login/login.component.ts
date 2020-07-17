@@ -44,7 +44,7 @@ import { ActivatedRoute, Params } from "@angular/router";
       border-color: #7d5bbe;
       box-shadow: 0 0 6px 0 #7d5bbe;
   }
-  
+
   .twitch-login-btn:focus {
     background: #7d5bbe;
     border-color: #9a7fcc;
@@ -55,7 +55,7 @@ import { ActivatedRoute, Params } from "@angular/router";
     font-size: 1.5em;
   }
     </style>
-  
+
     <p><b><span class='title'>Twitch KryaBot configuration</span></b></p>
     <p *ngIf="knownCode && errorCode == 401"><b>Oooops! You are not allowed to access configuration panel!</b></p>
     <p *ngIf="knownCode && errorCode == 405"><b>Your session expired, you need to relog!</b></p>
@@ -76,9 +76,10 @@ import { ActivatedRoute, Params } from "@angular/router";
     knownCode = false;
 
     alive = true;
-    constructor(private authService: NbAuthService, 
+    constructor(private authService: NbAuthService,
                 private userService: UserService,
                 private activatedRoute: ActivatedRoute) {
+        localStorage.removeItem('target_id');
         this.activatedRoute.queryParams.subscribe((params: Params) => {
           if(params.msg) {
             if (params.msg == 'http'){
@@ -89,10 +90,10 @@ import { ActivatedRoute, Params } from "@angular/router";
           }
           if(params.status)
             this.errorCode = params.status
-            
+
           if(this.errorCode == 401)
             this.knownCode = true
-          
+
           if(this.errorCode == 405)
             this.knownCode = true
 
@@ -102,7 +103,7 @@ import { ActivatedRoute, Params } from "@angular/router";
             this.token = null;
             if (token && token.isValid()) {
               this.token = token;
-              
+
             }
           });
         });
@@ -125,7 +126,7 @@ import { ActivatedRoute, Params } from "@angular/router";
             this.userService.logout();
           });
       }
-  
+
     ngOnDestroy(): void {
       this.alive = false;
     }

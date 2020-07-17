@@ -43,7 +43,7 @@ export class CommandsComponent implements OnInit {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
-    actions: { 
+    actions: {
       position: 'right',
     },
     columns: {
@@ -133,11 +133,11 @@ export class CommandsComponent implements OnInit {
     this.source.setSort([{ field: 'name', direction: 'asc' }]);
   }
 
-  formatShortMessage(message: string): string{
-    let maxLength = 30
+  formatShortMessage(message: string): string {
+    let maxLength = 30;
 
-    if (message.length > maxLength){
-      return message.substr(0, maxLength) + '...'
+    if (message && message.length > maxLength) {
+      return message.substr(0, maxLength) + '...';
     }
 
     return message
