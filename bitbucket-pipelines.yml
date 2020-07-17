@@ -8,20 +8,23 @@ image: node:current-alpine
 
 pipelines:
   branches: # Automated triggers on commits to branches
-   web-panel: # -- When committing to master branch
+   master: # -- When committing to master branch
     - step:
         name: Build and deploy
+        deployment: production
         caches:
           - node
         script: # Modify the commands below to build your repository.
+          - node -v
+          - apk add --no-cache git python make g++
           - npm install
-          - npm install --save-dev  --unsafe-perm node-sass
+          #- npm install --save-dev  --unsafe-perm node-sass
           - npm run ng build -- --prod --output-path=dist
           - ls -ltr dist
-		  - pipe: atlassian/ftp-deploy:0.3.3
-			variables:
-				USER: $PANEL_USER
-				PASSWORD: $PANEL_PASSWORD
-				SERVER: $DEPLOY_SERVER
-				REMOTE_PATH: '/'
-				LOCAL_PATH: 'dist' # Optional
+          - pipe: atlassian/ftp-deploy:0.3.3
+            variables:
+              USER: $PANEL_USER
+              PASSWORD: $PANEL_PASSWORD
+              SERVER: $DEPLOY_SERVER
+              REMOTE_PATH: '/'
+              LOCAL_PATH: 'dist' # Optional
