@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from "@angular/core";
-import { NbAuthResult, NbAuthService, NbAuthOAuth2Token } from "@nebular/auth";
-import { takeWhile } from "rxjs/operators";
-import { UserService } from "../../@core/data/users.service";
+import { Component, OnDestroy } from '@angular/core';
+import { NbAuthResult, NbAuthService, NbAuthOAuth2Token } from '@nebular/auth';
+import { takeWhile } from 'rxjs/operators';
+import { UserService } from '../../@core/data/users.service';
 
 @Component({
     selector: 'nb-oauth2-access',
@@ -10,7 +10,7 @@ import { UserService } from "../../@core/data/users.service";
   })
   export class NbOAuth2LoginComponent implements OnDestroy {
     token: NbAuthOAuth2Token;
-    
+
     alive = true;
     constructor(private authService: NbAuthService, private userService: UserService) {
         this.authService.onTokenChange()
@@ -37,7 +37,7 @@ import { UserService } from "../../@core/data/users.service";
             this.userService.logout();
           });
       }
-  
+
     ngOnDestroy(): void {
       this.alive = false;
     }
