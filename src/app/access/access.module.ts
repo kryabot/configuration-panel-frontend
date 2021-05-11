@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { NgxAuthRoutingModule } from './access-routing.module';
 import { NbAuthModule,  NbOAuth2ResponseType, NbOAuth2GrantType, NbAuthOAuth2Token, NbOAuth2ClientAuthMethod } from '@nebular/auth';
-import { 
+import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
@@ -13,7 +13,7 @@ import {
   // NbCardModule,
   NbLayoutModule,
   NbCardModule,
-  NbSpinnerModule
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NbOAuth2LoginComponent } from './login/login.component';
 import { NbOAuth2CallbackPlaygroundComponent } from './callback/callback.component';
@@ -34,7 +34,7 @@ import { environment } from '../../environments/environment';
     NbLayoutModule,
     NbCardModule,
     NbSpinnerModule,
-    
+
     NbAuthModule.forRoot({
         strategies: [
           NbOAuth2AuthStrategy.setup({
@@ -42,7 +42,7 @@ import { environment } from '../../environments/environment';
             clientId: environment.bot_auth_config.client_id,
             clientSecret: environment.bot_auth_config.client_secret,
             clientAuthMethod: NbOAuth2ClientAuthMethod.REQUEST_BODY,
-            
+
             authorize: {
               endpoint: environment.bot_auth_config.authorize_url,
               responseType: NbOAuth2ResponseType.CODE,
@@ -54,7 +54,7 @@ import { environment } from '../../environments/environment';
                 grantType: NbOAuth2GrantType.AUTHORIZATION_CODE,
                 redirectUri: environment.bot_auth_config.callbacl_url,
                 class: NbAuthOAuth2Token,
-            }
+            },
           }),
         ],
       }),
@@ -67,7 +67,7 @@ import { environment } from '../../environments/environment';
   ],
   providers: [
     NbOAuth2AuthStrategy,
-    NbOAuth2LoginComponent
+    NbOAuth2LoginComponent,
   ],
 })
 export class NgxAccessModule {
