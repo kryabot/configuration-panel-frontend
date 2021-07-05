@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { NbListModule, NbUserModule, NbAlertModule, NbSpinnerModule, NbCardModule, NbButtonModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
-import { DashboardComponent } from './dashboard.component';
+import { GrantsComponent } from './grants.component';
 import { StatusCardModule } from '../../@theme/components/status-card/status-card.module';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -14,9 +15,10 @@ import { StatusCardModule } from '../../@theme/components/status-card/status-car
     NbAlertModule,
     NbCardModule,
     NbButtonModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
-    DashboardComponent,
+    GrantsComponent,
   ],
 })
-export class DashboardModule { }
+export class GrantsModule { }

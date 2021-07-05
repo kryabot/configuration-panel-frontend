@@ -8,30 +8,34 @@ export class Command {
     repeat_amount: number;
     reply_message: string;
     additional_text: string;
+    check_type: number;
 
     short_message: string;
+    short_name: string;
 
-    constructor(raw: any){
-        if(!raw){
-            this.name = ''
-            this.action = 'custom_reply'
-            this.level = 0
-            this.active = true
-            this.cooldown = 30
-            this.repeat_amount = 0
-            this.reply_message = ''
-            this.additional_text = ''
-            return
+    constructor(raw: any) {
+        if (!raw) {
+            this.name = '';
+            this.action = 'custom_reply';
+            this.level = 0;
+            this.active = true;
+            this.cooldown = 30;
+            this.repeat_amount = 0;
+            this.reply_message = '';
+            this.additional_text = '';
+            this.check_type = 0;
+            return;
         }
-            
-        this.channel_command_id = raw.channel_command_id
-        this.name = raw.name || ''
-        this.action = raw.action || 'custom_reply'
-        this.level = raw.level || 0
-        this.active = raw.active
-        this.cooldown = raw.cooldown || 30
-        this.repeat_amount = raw.repeat_amount || 0
-        this.reply_message = raw.reply_message || ''
-        this.additional_text = raw.additional_text || ''
+
+        this.channel_command_id = raw.channel_command_id;
+        this.name = raw.name || '';
+        this.action = raw.action || 'custom_reply';
+        this.level = raw.level || 0;
+        this.active = raw.active;
+        this.cooldown = raw.cooldown || 30;
+        this.repeat_amount = raw.repeat_amount || 0;
+        this.reply_message = raw.reply_message || '';
+        this.additional_text = raw.additional_text || '';
+        this.check_type = raw.check_type || 0;
     }
 }

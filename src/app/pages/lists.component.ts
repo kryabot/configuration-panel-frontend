@@ -19,7 +19,12 @@ export var statusList = [
     { value: 1, title: 'Enabled' },
     ];
 
-export var levelList = [
+export var activeList = [
+  { value: 0, title: 'Inactive' },
+  { value: 1, title: 'Active' },
+];
+
+export let levelList = [
     {value: 0, title: 'Everyone'},
     {value: 1, title: 'Follower'},
     {value: 2, title: 'Subscriber'},
@@ -27,6 +32,13 @@ export var levelList = [
     {value: 6, title: 'Moderator'},
     {value: 7, title: 'Channel owner'},
     ];
+
+export let checkTypeList = [
+  {value: 0, title: 'First word'},
+  {value: 1, title: 'Starts with'},
+  {value: 2, title: 'Contains'},
+  {value: 10, title: 'Regex'},
+];
 
 export var paramKeyList= [
     {value: 'cd', title: 'Cooldown (number in seconds)'},
@@ -72,4 +84,16 @@ export let pointRewardActionList = [
     // {value: "TG_MUTE_OTHER",        title: "Telegram mute user (other)"},
     // {value: "TG_MESSAGE",           title: "Telegram group message"},
     // {value: "TG_AWARD",             title: "Telegram add award"},
+];
+
+export let permissionTypeList = [
+  { value: 'BOT', title: 'Rights for bot functionality'},
+  { value: 'TGAUTH', title: 'Authorization for Telegram'},
+  { value: 'WEB', title: 'Authorization for this control panel'},
+];
+
+export let permissionSourceList = [
+  { value: 'BOT', title: 'Twitch API'},
+  { value: 'TGAUTH', title: 'Twitch API'},
+  { value: 'WEB', title: 'Twitch API'},
 ];

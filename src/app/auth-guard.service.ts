@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       }
 
     validateApiResponse(response: any) {
-      if (response.status && response.message) {
+      if (response && response.status && response.message) {
         this.authService.logout('twitch');
         localStorage.removeItem('auth_app_token');
         localStorage.removeItem('target_id');
@@ -28,13 +28,13 @@ export class AuthGuard implements CanActivate {
       }
     }
 
-    expiredToken(){
+    expiredToken() {
       localStorage.removeItem('auth_app_token');
       localStorage.removeItem('target_id');
       this.router.navigate(['auth'], { queryParams: { msg: 'http', status: 405} });
     }
 
-    notAuthorised(){
+    notAuthorised() {
       localStorage.removeItem('auth_app_token');
       localStorage.removeItem('target_id');
       this.router.navigate(['auth'], { queryParams: { msg: 'http', status: 401} });

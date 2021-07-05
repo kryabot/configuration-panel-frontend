@@ -2,9 +2,10 @@
 
     <div class="col-md-12 col-lg-12 col-xxxl-12">
       <nb-card accent="info">
-        <nb-card-header>Chat commands 
+        <nb-card-header>Chat commands
           <button nbButton class="pull-right" (click)="help(helpDialog)"><nb-icon icon="question-mark-circle-outline" pack="eva"></nb-icon>Help</button>
           <button nbButton class="pull-right" (click)="help(tagsDialog)"  style="margin-right: 20px;"><nb-icon icon="hash" pack="eva"></nb-icon>Tags</button>
+          <button nbButton class="pull-right" (click)="openWindow({source: this.source}, true)"  style="margin-right: 20px;"><i class="nb-plus"></i>New command</button>
         </nb-card-header>
       <nb-card-body>
           <nb-alert
@@ -15,12 +16,15 @@
           (close)="onAlertClose(alert)">
           {{alert.message}}
         </nb-alert>
-        <ng2-smart-table [settings]="settings" [source]="source" 
-          (delete)="deleteCommand($event)" 
-          (edit)="editCommand($event)" 
-          (create)="createCommand($event)" 
-          (userRowSelect)="onRowSelect($event)"> 
+        <ng2-smart-table [settings]="settings" [source]="source"
+          (delete)="deleteCommand($event)"
+          (edit)="editCommand($event)"
+          (create)="createCommand($event)"
+          (userRowSelect)="onRowSelect($event)">
         </ng2-smart-table>
+
+
+
       </nb-card-body>
     </nb-card>
     </div>

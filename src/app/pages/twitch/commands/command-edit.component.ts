@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { Command } from '../../../@core/model/Command.model';
-import { levelList, texts } from '../../lists.component';
+import {checkTypeList, levelList, texts} from '../../lists.component';
 import { BackendService } from '../../../@core/data/backend.service';
 
 @Component({
@@ -9,71 +9,73 @@ import { BackendService } from '../../../@core/data/backend.service';
   templateUrl: 'command-edit.component.html',
   styleUrls: ['command-edit.component.scss'],
 })
-export class CommandEditComponent implements OnInit{
+export class CommandEditComponent implements OnInit {
   @Input() data: any;
   @Input() isNew: boolean;
 
-  modalTitle: string = ''
-  existingData = []
-  submitted: boolean = false
-  command: Command
-  levelDropdown = []
-  checking:boolean = false
+  modalTitle: string = '';
+  existingData = [];
+  submitted: boolean = false;
+  command: Command;
+  levelDropdown = [];
+  typeDropdown = [];
+  checking: boolean = false;
   alerts: any[];
 
-  secs_week = 604800
-  cooldown_min = 5
+  secs_week = 604800;
+  cooldown_min = 5;
 
-  saved = 'primary'
+  saved = 'primary';
 
   constructor(protected ref: NbDialogRef<CommandEditComponent>, private backend: BackendService) {
-    this.clearAlerts()
+    this.clearAlerts();
   }
 
   ngOnInit() {
-    if(this.isNew){
-        this.command = new Command(null)
-        this.modalTitle = 'Creation of new command'
-        this.existingData = this.data.source.data
+    if (this.isNew) {
+        this.command = new Command(null);
+        this.modalTitle = 'Creation of new command';
+        this.existingData = this.data.source.data;
     } else {
-        this.command = new Command(this.data.data)
-        this.modalTitle = 'Edit of command: ' + this.command.name
-        this.existingData = this.data._dataSet.data
+        this.command = new Command(this.data.data);
+        this.modalTitle = 'Edit of command';
+        this.existingData = this.data._dataSet.data;
     }
-    this.levelDropdown = levelList
-    this.submitted = false
+    this.levelDropdown = levelList;
+    this.typeDropdown = checkTypeList;
+    this.submitted = false;
   }
 
   dismiss(data: any = null) {
     this.ref.close(data);
   }
 
-  validateName(silent: boolean = true): boolean{
-    if (!this.command.name || this.command.name.trim().length == 0){
-      this.createWarning(`Command name is missing!`, silent)
-      return false
+  validateName(silent: boolean = true): boolean {
+    if (!this.command.name || this.command.name.trim().length === 0) {
+      this.createWarning(`Command trigger cannot be empty!`, silent);
+      return false;
     }
 
-    if(this.command.name.includes(' ')){
-      this.createWarning(`Command name can not have spaces!`, silent)
-      return false
+    if (this.command.check_type === 0 && this.command.name.includes(' ')) {
+      this.createWarning(`Command trigger can not have spaces!`, silent);
+      return false;
     }
 
-    if (this.command.name.length > 50){
-      this.createWarning(`Sorry, but command name can not exceed 50 symbols!`, silent)
-      return
+    if (this.command.name.length > 200) {
+      this.createWarning(`Sorry, but command trigger can not exceed 200 symbols!`, silent);
+      return false;
     }
 
-    if(this.hasDuplicate()){
-      this.createWarning(`Command with name ${this.command.name} already exists!`, silent)
-      return
+    if (this.hasDuplicate()) {
+      this.createWarning(`Command with trigger ${this.command.name} already exists!`, silent);
+      return false;
     }
 
-    return true
+    return true;
   }
 
-  validateCooldown(silent: boolean = true): boolean{
-    if (!this.isInt(this.command.cooldown)){
+  validateCooldown(silent: boolean = true): boolean {
+    if (!this.isInt(this.command.cooldown)) {
       this.createWarning(`Cooldown must be positive integer number!`, silent)
       return
     }
@@ -152,7 +154,7 @@ export class CommandEditComponent implements OnInit{
       this.stopLoading()
       return
     }
-    
+
     if(this.unchangedData()){
       this.dismiss()
       return;
@@ -169,9 +171,9 @@ export class CommandEditComponent implements OnInit{
       .subscribe((resp: any) => {
         this.saved = 'success'
         setTimeout(() => this.dismiss(resp), 2000);
-      }, 
+      },
       error => {
-        
+
         if (error.error && error.error.error){
           this.saved = 'warning'
           this.createAlert('warning', `Failed to save: ${error.error.error}`,);
@@ -180,7 +182,7 @@ export class CommandEditComponent implements OnInit{
           this.createAlert('warning', `You broke something again...`);
           this.createAlert('danger', `Error from backend: ${error.statusText} (${error.status})`,);
         }
-        
+
         setTimeout(() => this.stopLoading(), 1000);
       });
   }
