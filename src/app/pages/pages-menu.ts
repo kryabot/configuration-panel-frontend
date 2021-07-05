@@ -10,7 +10,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Permissions',
     icon: 'unlock-outline',
-    link: '/app/permissions',
+    link: '/app/grants',
   },
   {
     title: 'Bot configuration',
@@ -19,7 +19,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Twitch bot',
     icon: 'video-outline',
-    children: [ 
+    children: [
     {
       title: 'Chat commands',
       link: '/app/twitch/commands',
@@ -37,7 +37,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Telegram bot',
     icon: 'navigation-2-outline',
-    children: [      
+    children: [
     {
       title: 'Group settings',
       link: '/app/telegram/group',

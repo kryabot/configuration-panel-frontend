@@ -15,6 +15,7 @@ import { BannedMedia } from '../model/BannedMedia';
 import { BannedWord } from '../model/BannedWord';
 import { Award } from '../model/Award';
 import { ReportStat } from '../model/ReportStat';
+import {Permission} from '../model/Permission.model';
 
 @Injectable()
 export class BackendService {
@@ -40,14 +41,14 @@ export class BackendService {
             console.error(
             `Backend returned code ${error.status}, ` +
             `body was: ${error.error}`);
-            if(error.status && error.status == 401){
-                this.guard.expiredToken()
+            if (error.status && error.status === 401) {
+                this.guard.expiredToken();
             }
 
-            if(error.error && error.error.error && error.error.error.includes('No client id specified')){
-                this.guard.expiredToken()
+            if (error.error && error.error.error && error.error.error.includes('No client id specified')){
+                this.guard.expiredToken();
             } else {
-                return throwError(error)
+                return throwError(error);
             }
         }
         // return an observable with a user-facing error message
@@ -69,7 +70,7 @@ export class BackendService {
 
     searchTargetId(): number {
       const val = localStorage.getItem('target_id');
-      if (val){
+      if (val) {
         this.targetId = parseInt(val);
       }
       return this.targetId || 0;
@@ -221,4 +222,11 @@ export class BackendService {
         .pipe(catchError(this.handleError.bind(this)));
     }
 
+    getPermissions(inputToken?: string): Observable<Permission[]> {
+      return this.http.get<ReportStat[]>(this.getUrl('channel/permission', inputToken), {headers: this.getHeader()})
+        .pipe(catchError(this.handleError.bind(this)));
+    }
+    deletePermission(type: string, inputToken?: string) {
+      return this.http.delete(this.getUrl('channel/permission/' + type, inputToken)).pipe(catchError(this.handleError.bind(this)));
+    }
 }

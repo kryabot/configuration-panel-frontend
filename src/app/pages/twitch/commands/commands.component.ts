@@ -4,7 +4,7 @@ import { BackendService } from '../../../@core/data/backend.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NbDialogService, NbIconLibraries } from '@nebular/theme';
 import { DialogQuestionComponent } from '../../../@theme/components/modal/question-dialog/question-dialog.component';
-import { levelList, statusList, texts } from '../../lists.component';
+import { levelList, statusList, checkTypeList, texts } from '../../lists.component';
 import { AuthGuard } from '../../../auth-guard.service';
 import { PagesComponent } from '../../pages.component';
 import { CommandEditComponent } from './command-edit.component';
@@ -23,6 +23,7 @@ export class CommandsComponent implements OnInit {
   settings = {
     mode: 'external',
     noDataMessage: 'Only darkness here...',
+    hideSubHeader: true,
     pager: {
       display: true,
       perPage: 50,
@@ -47,14 +48,31 @@ export class CommandsComponent implements OnInit {
       position: 'right',
     },
     columns: {
-      name: {
-        title: 'Command name',
+      short_name: {
+        title: 'Command trigger',
         type: 'string',
-        show: true,
       },
       short_message: {
         title: 'Bot message',
         type: 'string',
+      },
+      check_type: {
+        title: 'Type',
+        editor: {
+          type: 'list',
+          config: {
+            list: checkTypeList,
+          },
+        },
+        filter: {
+          type: 'list',
+          config: {
+            list: checkTypeList,
+          },
+        },
+        valuePrepareFunction: (cell) => {
+          return this.findTitleValueNumber(checkTypeList, cell);
+        }
       },
       cooldown: {
         title: 'Cooldown in seconds',
@@ -127,6 +145,7 @@ export class CommandsComponent implements OnInit {
 
   private pushData(){
     this.commands.forEach(cmd => cmd.short_message = this.formatShortMessage(cmd.reply_message));
+    this.commands.forEach(cmd => cmd.short_name = this.formatShortMessage(cmd.name));
     this.source = new LocalDataSource();
     this.source.load(this.commands);
 
@@ -171,21 +190,21 @@ export class CommandsComponent implements OnInit {
       });
   }
 
-  findTitleValueNumber(list, cell): string{
-    let status = list.find(x => x.value === Number(cell));
-    if(status) return status.title;
+  findTitleValueNumber(list, cell): string {
+    const status = list.find(x => x.value === Number(cell));
+    if (status) return status.title;
     return '?';
   }
 
   findTitleValueString(list, cell): string{
-    let status = list.find(x => x.value === cell);
-    if(status) return status.title;
+    const status = list.find(x => x.value === cell);
+    if (status) return status.title;
     return '?';
   }
 
   createAlert(alertType:string, alertText: string, side: string, multi?:boolean){
-    let alert = {size: 'xxsmall', status: alertType, message: alertText, cardSide: side};
-    if(!multi){
+    const alert = {size: 'xxsmall', status: alertType, message: alertText, cardSide: side};
+    if (!multi) {
       this.clearAlerts();
     }
     this.alerts.push(alert);
@@ -195,15 +214,15 @@ export class CommandsComponent implements OnInit {
     this.alerts = [];
   }
 
-  onAlertClose(alert){
-    this.alerts = this.alerts.filter(x => x != alert);
+  onAlertClose(alert) {
+    this.alerts = this.alerts.filter(x => x !== alert);
   }
 
-  getCommandAlerts(){
-    return this.alerts.filter(x => x.cardSide == 'left');
+  getCommandAlerts() {
+    return this.alerts.filter(x => x.cardSide === 'left');
   }
 
-  onRowSelect(event){
+  onRowSelect(event) {
 
   }
 

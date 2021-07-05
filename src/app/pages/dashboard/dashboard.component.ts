@@ -7,8 +7,8 @@ import { PagesComponent } from '../pages.component';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
-  constructor(private backend: BackendService, 
-              private page: PagesComponent){
+  constructor(private backend: BackendService,
+              private page: PagesComponent) {
     this.page.startLoading();
   }
 
@@ -16,7 +16,7 @@ export class DashboardComponent {
     this.page.stopLoading();
   }
 
-  access(){
+  access() {
     window.open('/access', '_blank');
   }
 

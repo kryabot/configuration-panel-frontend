@@ -12,7 +12,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "preserveSymlinks": true,
-            "rebaseRootRelativeCssUrls": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",

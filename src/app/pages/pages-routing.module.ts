@@ -14,6 +14,7 @@ import { BannedWordComponent } from './telegram/banned-word/banned-word.componen
 import { AwardComponent } from './telegram/award/award.component';
 import { GroupStatsComponent } from './telegram/stats/stats.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { GrantsComponent } from './grants/grants.component';
 
 
 const routes: Routes = [{
@@ -25,8 +26,8 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
-      path: 'permissions',
-      component: DashboardComponent,
+      path: 'grants',
+      component: GrantsComponent,
     },
     {
       path: 'telegram',

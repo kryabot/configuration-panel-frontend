@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbSpinnerModule, NbAlertModule, NbCardModule, NbDialogModule, NbIconModule } from '@nebular/theme';
+import {
+  NbMenuModule,
+  NbSpinnerModule,
+  NbAlertModule,
+  NbCardModule,
+  NbDialogModule,
+  NbIconModule,
+  NbToastrModule
+} from '@nebular/theme';
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -11,7 +19,6 @@ import { StatusCardModule } from '../@theme/components/status-card/status-card.m
 import { CommandsModule } from './twitch/commands/commands.module';
 import { ChannelModule } from './twitch/channel/channel.module';
 import { NoticeModule } from './twitch/notice/notice.module';
-// import { DialogQuestionComponent } from '../@theme/components/modal/question-dialog/question-dialog.component';
 import { PointRewardModule } from './twitch/pointreward/pointreward.module';
 import { FormsModule } from '@angular/forms';
 import { BannedMediaModule } from './telegram/banned-media/banned-media.module';
@@ -19,7 +26,8 @@ import { BannedWordModule } from './telegram/banned-word/banned-word.module';
 import { AwardModule } from './telegram/award/award.module';
 import { GroupStatsModule } from './telegram/stats/stats.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import {DialogQuestionComponent} from "../@theme/components";
+import {DialogQuestionComponent} from '../@theme/components';
+import {GrantsModule} from './grants/grants.module';
 
 @NgModule({
   imports: [
@@ -42,19 +50,20 @@ import {DialogQuestionComponent} from "../@theme/components";
     AwardModule,
     GroupStatsModule,
     MiscellaneousModule,
+    GrantsModule,
     FormsModule,
     NbDialogModule.forChild(),
     NbIconModule,
-
+    NbToastrModule.forRoot({duration: 10000}),
   ],
   declarations: [
     PagesComponent,
-    DialogQuestionComponent
+    DialogQuestionComponent,
   ],
   exports: [StatusCardModule],
-  entryComponents:[
-    DialogQuestionComponent
-  ]
+  entryComponents: [
+    DialogQuestionComponent,
+  ],
 })
 export class PagesModule {
 }
