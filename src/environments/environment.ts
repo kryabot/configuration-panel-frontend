@@ -7,7 +7,25 @@
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
-let apiHost = 'https:///api2.krya.dev';
+const apiHost = 'https:///api2.krya.dev';
+
+const requiredScopes = [
+  'bits:read',
+  'channel:read:subscriptions',
+  'channel:read:redemptions',
+  'channel:read:predictions',
+  'channel:read:goals',
+  'channel:read:hype_train',
+  'channel:read:editors',
+  'channel:read:vips',
+  'channel:read:polls',
+  'channel:manage:vips',
+  'channel:manage:predictions',
+  'channel:manage:polls',
+  'channel:manage:redemptions',
+  'moderation:read',
+];
+
 export const environment = {
   production: false,
   auth_config: {
@@ -27,16 +45,16 @@ export const environment = {
     authorize_url: 'https://id.twitch.tv/oauth2/authorize',
     token_url: apiHost + '/login/access',
     callbacl_url: 'http://192.168.0.170:4200/access/callback',
-    auth_scope: 'channel_check_subscription channel_editor channel_subscriptions channel:read:subscriptions moderation:read bits:read',
+    auth_scope: requiredScopes.join(' '),
   },
-  donationalerts_config:{
+  donationalerts_config: {
     auth_name: 'donation_alerts',
     client_id: '354',
     client_secret: '',
     authorize_url: 'https://www.donationalerts.com/oauth/authorize',
     token_url: apiHost + '/login/da-access',
     callback_url: 'https://my.krya.dev/da-access/callback',
-    auth_scope: 'oauth-donation-subscribe oauth-user-show'
+    auth_scope: 'oauth-donation-subscribe oauth-user-show',
   },
   data_api: {
     base_url: apiHost,
